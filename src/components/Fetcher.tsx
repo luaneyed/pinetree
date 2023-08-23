@@ -19,8 +19,11 @@ export const Fetcher: FC<Props> = ({ style }) => {
     setResult(JSON.stringify(result.data));
   }, [environment, apiKey, indexName, parameters]);
 
+  const description = `fetch (parameters example : { "ids": ["url#0"]})`
+
   return (
     <FormControl style={style}>
+      {description}
       <FormLabel>indexName</FormLabel>
       <Input
         type="text"
