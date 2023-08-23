@@ -37,7 +37,7 @@ export const Querier: FC<Props> = ({ style }) => {
         onChange={(e) => setParameters(e.target.value)}
       />
       <Button onClick={query}>Query</Button>
-      <JsonViewer value={result} theme='dark' />
+      <JsonViewer value={result} theme='auto' />
     </FormControl>
   );
 };
