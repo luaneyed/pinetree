@@ -1,7 +1,8 @@
 import { usePineconeConfigStore } from "@/store/PineconeConfigStore";
-import { Box, Button, FormControl, FormLabel, Input } from "@chakra-ui/react";
+import { Button, FormControl, FormLabel, Input } from "@chakra-ui/react";
 import { CSSProperties, FC, useCallback, useState } from "react";
 import axios from "axios";
+import { JsonViewer } from "@textea/json-viewer";
 
 interface Props {
   style?: CSSProperties;
@@ -10,12 +11,12 @@ interface Props {
 export const Fetcher: FC<Props> = ({ style }) => {
   const [indexName, setIndexName] = useState('');
   const [parameters, setParameters] = useState('');
-  const [result, setResult] = useState('');
+  const [result, setResult] = useState({});
   const environment = usePineconeConfigStore((state) => state.environment);
   const apiKey = usePineconeConfigStore((state) => state.apiKey);
   const fetch = useCallback(async () => {
     const result = await axios.post('/api/fetch', { apiKey, environment, indexName, parameters });
-    setResult(JSON.stringify(result.data, null, 2));
+    setResult(result.data);
   }, [environment, apiKey, indexName, parameters]);
 
   const description = `fetch ex. { "ids": ["url#0"]}`
@@ -36,7 +37,7 @@ export const Fetcher: FC<Props> = ({ style }) => {
         onChange={(e) => setParameters(e.target.value)}
       />
       <Button onClick={fetch}>Fetch</Button>
-      <Box><pre>{result}</pre></Box>
+      <JsonViewer value={result} />
     </FormControl>
   );
 };
