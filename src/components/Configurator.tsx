@@ -11,6 +11,7 @@ export const Configurator: FC<Props> = ({ style }) => {
     (state) => state.setEnvironment
   );
   const setApiKey = usePineconeConfigStore((state) => state.setApiKey);
+  const setOpenAiKey = usePineconeConfigStore((state) => state.setOpenAiKey);
 
   return (
     <FormControl style={style}>
@@ -25,6 +26,12 @@ export const Configurator: FC<Props> = ({ style }) => {
         type="password"
         value={usePineconeConfigStore((state) => state.apiKey)}
         onChange={(e) => setApiKey(e.target.value)}
+      />
+      <FormLabel>Open AI Key</FormLabel>
+      <Input
+        type="password"
+        value={usePineconeConfigStore((state) => state.openAiKey)}
+        onChange={(e) => setOpenAiKey(e.target.value)}
       />
     </FormControl>
   );

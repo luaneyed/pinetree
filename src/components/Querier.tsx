@@ -14,10 +14,11 @@ export const Querier: FC<Props> = ({ style }) => {
   const [result, setResult] = useState({});
   const environment = usePineconeConfigStore((state) => state.environment);
   const apiKey = usePineconeConfigStore((state) => state.apiKey);
+  const openAiKey = usePineconeConfigStore((state) => state.openAiKey);
   const query = useCallback(async () => {
-    const result = await axios.post('/api/query', { apiKey, environment, indexName, parameters });
+    const result = await axios.post('/api/query', { apiKey, openAiKey, environment, indexName, parameters });
     setResult(result.data);
-  }, [environment, apiKey, indexName, parameters]);
+  }, [environment, apiKey, openAiKey, indexName, parameters]);
 
   const description = `query ex. { "topK": 10000, "emptyVector": 1536, "filter": { "url": "httpsblah" } }`
 
